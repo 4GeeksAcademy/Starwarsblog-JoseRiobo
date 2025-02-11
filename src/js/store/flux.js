@@ -1,18 +1,10 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			peopleData: [],
+			vehiclesData: [],
+			planetsData: [],
+			myFavouriteCards: [], 
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -34,9 +26,52 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (i === index) elm.background = color;
 					return elm;
 				});
-
+				
 				//reset the global store
 				setStore({ demo: demo });
+
+			},
+			getPeople: async () =>{
+				const response = await fetch("https://www.swapi.tech/api/people/")
+				const data = await response.json()
+			
+				
+				setStore({peopleData:data.results})
+			
+			},
+
+			getVehicles: async() =>{
+				const response = await fetch("https://www.swapi.tech/api/vehicles/")
+				const data = await response.json()
+				
+				
+				
+				setStore({vehiclesData:data.results})
+			},
+
+			getPlanets: async() =>{
+				const response = await fetch("https://www.swapi.tech/api/planets/")
+				const data = await response.json()
+				setStore({planetsData:data.results})
+			}, 
+			markFavourites: (newFavourite) => {
+				const { myFavouriteCards } = getStore();
+			
+				if (!myFavouriteCards.includes(newFavourite)) {
+					const updatedFavourites = [...myFavouriteCards, newFavourite];
+			
+					setStore({ myFavouriteCards: updatedFavourites });
+				} else {
+					console.log("This card has already been marked as a favourite");
+				}
+			},
+			removeFavourites: (index) => {
+				const { myFavouriteCards } = getStore();
+				const updatedFavourites = myFavouriteCards.filter((_, i) => i !== index); 
+				
+				setStore({ myFavouriteCards: updatedFavourites }); 
+				
+				
 			}
 		}
 	};

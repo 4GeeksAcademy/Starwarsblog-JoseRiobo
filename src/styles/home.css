@@ -1,0 +1,11 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%; 
+    background-image: url('https://files.ekmcdn.com/allwallpapers/images/star-wars-retro-collage-wall-mural-wallpaper-32250-1-p.jpg'); /* Reemplaza con tu imagen */
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+
